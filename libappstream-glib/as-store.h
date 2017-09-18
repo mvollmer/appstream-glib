@@ -242,9 +242,11 @@ void		 as_store_set_builder_id	(AsStore	*store,
 const gchar	*as_store_get_destdir		(AsStore	*store);
 void		 as_store_set_destdir		(AsStore	*store,
 						 const gchar	*destdir);
-gdouble		 as_store_get_api_version	(AsStore	*store);
-void		 as_store_set_api_version	(AsStore	*store,
-						 gdouble	 api_version);
+const gchar *    as_store_get_api_version_string (AsStore	*store);
+void		 as_store_set_api_version_string (AsStore	*store,
+						  const gchar   *api_version);
+gboolean         as_store_api_version_at_least  (AsStore        *store,
+						 const gchar    *version);
 AsStoreAddFlags	 as_store_get_add_flags		(AsStore	*store);
 void		 as_store_set_add_flags		(AsStore	*store,
 						 AsStoreAddFlags add_flags);
@@ -260,6 +262,11 @@ void		 as_store_add_filter		(AsStore	*store,
 						 AsAppKind	 kind);
 void		 as_store_remove_filter		(AsStore	*store,
 						 AsAppKind	 kind);
+
+/* Deprecated */
+gdouble		 as_store_get_api_version	(AsStore	*store);
+void		 as_store_set_api_version	(AsStore	*store,
+						 gdouble	 api_version);
 
 G_END_DECLS
 

@@ -667,7 +667,8 @@ as_release_node_insert (AsRelease *release, GNode *parent, AsNodeContext *ctx)
 	}
 	if (priv->version != NULL)
 		as_node_add_attribute (n, "version", priv->version);
-	if (as_node_context_get_version (ctx) >= 0.9) {
+	// XXX - figure out real minumum version for "locations"
+	if (as_node_context_version_at_least (ctx, "0.9")) {
 		const gchar *tmp;
 		for (i = 0; priv->locations != NULL && i < priv->locations->len; i++) {
 			tmp = g_ptr_array_index (priv->locations, i);
@@ -679,7 +680,7 @@ as_release_node_insert (AsRelease *release, GNode *parent, AsNodeContext *ctx)
 			as_checksum_node_insert (checksum, n, ctx);
 		}
 	}
-	if (priv->descriptions != NULL && as_node_context_get_version (ctx) >= 0.6) {
+	if (priv->descriptions != NULL && as_node_context_version_at_least (ctx, "0.6")) {
 		as_node_insert_localized (n, "description", priv->descriptions,
 					  AS_NODE_INSERT_FLAG_PRE_ESCAPED |
 					  AS_NODE_INSERT_FLAG_DEDUPE_LANG);

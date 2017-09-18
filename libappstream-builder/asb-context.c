@@ -60,7 +60,7 @@ typedef struct
 	AsbPluginLoader		*plugin_loader;
 	AsbContextFlags		 flags;
 	guint			 min_icon_size;
-	gdouble			 api_version;
+	gchar                   *api_version;
 	gchar			*log_dir;
 	gchar			*cache_dir;
 	gchar			*temp_dir;
@@ -98,7 +98,9 @@ asb_context_realpath (const gchar *path)
  * @ctx: A #AsbContext
  * @api_version: the AppStream API version
  *
- * Sets the version of the metadata to write.
+ * Sets the version of the metadata to write, as a double.  This
+ * function is deprecated, use asb_context_set_api_version_string
+ * instead.
  *
  * Since: 0.1.0
  **/
@@ -106,7 +108,25 @@ void
 asb_context_set_api_version (AsbContext *ctx, gdouble api_version)
 {
 	AsbContextPrivate *priv = GET_PRIVATE (ctx);
-	priv->api_version = api_version;
+	g_free (priv->api_version);
+	priv->api_version = g_strdup_printf ("%g", api_version);
+}
+
+/**
+ * asb_context_set_api_version_string:
+ * @ctx: A #AsbContext
+ * @api_version: the AppStream API version
+ *
+ * Sets the version of the metadata to write.
+ *
+ * Since: 0.7.3
+ **/
+void
+asb_context_set_api_version_string (AsbContext *ctx, const gchar *api_version)
+{
+	AsbContextPrivate *priv = GET_PRIVATE (ctx);
+	g_free (priv->api_version);
+	priv->api_version = g_strdup (api_version);
 }
 
 /**
@@ -339,7 +359,9 @@ asb_context_get_flag (AsbContext *ctx, AsbContextFlags flag)
  * asb_context_get_api_version:
  * @ctx: A #AsbContext
  *
- * Gets the target metadata API version.
+ * Gets the approximate target metadata API version, as a double.
+ * This function is deprecated, use asb_context_get_version_string
+ * instead.
  *
  * Returns: floating point
  *
@@ -347,6 +369,23 @@ asb_context_get_flag (AsbContext *ctx, AsbContextFlags flag)
  **/
 gdouble
 asb_context_get_api_version (AsbContext *ctx)
+{
+	AsbContextPrivate *priv = GET_PRIVATE (ctx);
+	return as_utils_version_to_double (priv->api_version);
+}
+
+/**
+ * asb_context_get_api_version_string:
+ * @ctx: A #AsbContext
+ *
+ * Gets the target metadata API version.
+ *
+ * Returns: string
+ *
+ * Since: 0.1.0
+ **/
+const gchar*
+asb_context_get_api_version_string (AsbContext *ctx)
 {
 	AsbContextPrivate *priv = GET_PRIVATE (ctx);
 	return priv->api_version;
@@ -688,7 +727,7 @@ asb_context_write_xml (AsbContext *ctx, GError **error)
 
 	g_print ("Writing %s...\n", filename);
 	as_store_set_origin (store, priv->origin);
-	as_store_set_api_version (store, priv->api_version);
+	as_store_set_api_version_string (store, priv->api_version);
 	return as_store_to_file (store,
 				 file,
 				 AS_NODE_TO_XML_FLAG_ADD_HEADER |
@@ -791,7 +830,6 @@ asb_context_write_app_xml (AsbContext *ctx)
 		/* just log raw XML */
 		app = ASB_APP (l->data);
 		store = as_store_new ();
-		as_store_set_api_version (store, 1.0f);
 		as_store_add_app (store, AS_APP (app));
 		xml = as_store_to_xml (store,
 				       AS_NODE_TO_XML_FLAG_FORMAT_INDENT |
@@ -916,7 +954,7 @@ asb_context_write_xml_fail (AsbContext *ctx, GError **error)
 	g_print ("Writing %s...\n", filename);
 	basename_failed = g_strdup_printf ("%s-failed", priv->origin);
 	as_store_set_origin (priv->store_failed, basename_failed);
-	as_store_set_api_version (priv->store_failed, priv->api_version);
+	as_store_set_api_version_string (priv->store_failed, priv->api_version);
 	return as_store_to_file (priv->store_failed,
 				 file,
 				 AS_NODE_TO_XML_FLAG_ADD_HEADER |
@@ -941,7 +979,7 @@ asb_context_write_xml_ignore (AsbContext *ctx, GError **error)
 	g_print ("Writing %s...\n", filename);
 	basename_cache = g_strdup_printf ("%s-ignore", priv->origin);
 	as_store_set_origin (priv->store_ignore, basename_cache);
-	as_store_set_api_version (priv->store_ignore, priv->api_version);
+	as_store_set_api_version_string (priv->store_ignore, priv->api_version);
 	return as_store_to_file (priv->store_ignore,
 				 file,
 				 AS_NODE_TO_XML_FLAG_ADD_HEADER |
@@ -1225,6 +1263,7 @@ asb_context_finalize (GObject *object)
 	AsbContext *ctx = ASB_CONTEXT (object);
 	AsbContextPrivate *priv = GET_PRIVATE (ctx);
 
+	g_free (priv->api_version);
 	g_object_unref (priv->store_failed);
 	g_object_unref (priv->store_ignore);
 	g_object_unref (priv->plugin_loader);

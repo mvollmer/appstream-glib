@@ -4612,7 +4612,7 @@ as_app_node_insert (AsApp *app, GNode *parent, AsNodeContext *ctx)
 	}
 
 	/* <launchables> */
-	if (priv->launchables->len > 0 && as_node_context_get_version (ctx) > 0.9) {
+	if (priv->launchables->len > 0 && as_node_context_version_at_least (ctx, "0.11")) {
 		g_ptr_array_sort (priv->launchables, as_app_launchables_sort_cb);
 		for (i = 0; i < priv->launchables->len; i++) {
 			AsLaunchable *launchable = g_ptr_array_index (priv->launchables, i);
@@ -4635,8 +4635,9 @@ as_app_node_insert (AsApp *app, GNode *parent, AsNodeContext *ctx)
 	}
 
 	/* <custom> or <metadata> */
+	// XXX - figure out real minimum version for "custom"
 	if (g_hash_table_size (priv->metadata) > 0) {
-		tmp = as_node_context_get_version (ctx) > 0.9 ? "custom" : "metadata";
+		tmp = as_node_context_version_at_least (ctx, "0.9") ? "custom" : "metadata";
 		node_tmp = as_node_insert (node_app, tmp, NULL, 0, NULL);
 		as_node_insert_hash (node_tmp, "value", "key", priv->metadata, FALSE);
 	}
@@ -6193,7 +6194,7 @@ as_app_to_file (AsApp *app,
 
 	root = as_node_new ();
 	ctx = as_node_context_new ();
-	as_node_context_set_version (ctx, 1.0);
+	as_node_context_set_version (ctx, "1.0");
 	as_node_context_set_output (ctx, AS_FORMAT_KIND_APPDATA);
 	as_app_node_insert (app, root, ctx);
 	xml = as_node_to_xml (root,

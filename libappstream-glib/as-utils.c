@@ -2015,3 +2015,38 @@ as_utils_appstream_id_valid (const gchar *str)
 	}
 	return TRUE;
 }
+
+/**
+ * as_utils_version_to_double:
+ * @str: a string
+ *
+ * Returns an approximation to a version string that can be expressed as a double.
+ * The approximation is equal or less than the given version string.
+ *
+ * Returns: the approximation.
+ *
+ * Since: 0.6.4
+ */
+gdouble
+as_utils_version_to_double (const gchar *version)
+{
+	const gchar *minor;
+
+	minor = strchr (version, '.');
+	if (minor == NULL)
+		return g_ascii_strtod (version, NULL);
+	minor += 1;
+
+	// A floating point number can only correctly represent a
+	// minor version that is a single digit.  Anything else is
+	// approximated by 0.9.  Anything after the minor version is
+	// ignored.
+	//
+	// For example, the string "0.7.5" is returned as 0.7, while
+	// "0.11" is returned as 0.9.
+
+	if (minor[1] == '\0' || minor[1] == '.')
+		return g_ascii_strtod (version, NULL);
+	else
+		return g_ascii_strtoull (version, NULL, 10) + 0.9;
+}

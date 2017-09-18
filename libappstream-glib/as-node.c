@@ -2082,7 +2082,7 @@ as_node_get_localized_unwrap (const AsNode *node, GError **error)
 struct _AsNodeContext {
 	AsFormatKind	 format_kind;
 	AsFormatKind	 output;
-	gdouble		 version;
+	gchar           *version;
 	gboolean	 output_trusted;
 	AsRefString	*media_base_url;
 };
@@ -2101,7 +2101,7 @@ as_node_context_new (void)
 {
 	AsNodeContext *ctx;
 	ctx = g_new0 (AsNodeContext, 1);
-	ctx->version = 0.f;
+	ctx->version = g_strdup ("0");
 	ctx->format_kind = AS_FORMAT_KIND_APPSTREAM;
 	ctx->output = AS_FORMAT_KIND_UNKNOWN;
 	return ctx;
@@ -2122,6 +2122,7 @@ as_node_context_free (AsNodeContext *ctx)
 		return;
 	if (ctx->media_base_url != NULL)
 		as_ref_string_unref (ctx->media_base_url);
+	g_free (ctx->version);
 	g_free (ctx);
 }
 
@@ -2135,7 +2136,7 @@ as_node_context_free (AsNodeContext *ctx)
  *
  * Since: 0.3.6
  **/
-gdouble
+const gchar *
 as_node_context_get_version (AsNodeContext *ctx)
 {
 	return ctx->version;
@@ -2144,16 +2145,32 @@ as_node_context_get_version (AsNodeContext *ctx)
 /**
  * as_node_context_set_version: (skip)
  * @ctx: a #AsNodeContext.
+ * @version: an API version to target.
+ *
+ * Sets the AppStream API version used when parsing or inserting nodes.
+ *
+ * Since: 0.7.3
+ **/
+void
+as_node_context_set_version (AsNodeContext *ctx, const gchar *version)
+{
+	g_free (ctx->version);
+	ctx->version = g_strdup (version);
+}
+
+/**
+ * as_node_context_version_at_least: (skip)
+ * @ctx: a #AsNodeContext.
  * @version: an API version number to target.
  *
  * Sets the AppStream API version used when parsing or inserting nodes.
  *
- * Since: 0.3.6
+ * Since: 0.7.3
  **/
-void
-as_node_context_set_version (AsNodeContext *ctx, gdouble version)
+gboolean
+as_node_context_version_at_least (AsNodeContext *ctx, const gchar *version)
 {
-	ctx->version = version;
+	return as_utils_vercmp (ctx->version, version) >= 0;
 }
 
 /**

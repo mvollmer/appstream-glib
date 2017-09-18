@@ -93,8 +93,8 @@ void		 asb_context_add_app		(AsbContext	*ctx,
 						 AsbApp		*app);
 void		 asb_context_add_app_ignore	(AsbContext	*ctx,
 						 AsbPackage	*pkg);
-void		 asb_context_set_api_version	(AsbContext	*ctx,
-						 gdouble	 api_version);
+void		 asb_context_set_api_version_string (AsbContext	 *ctx,
+						     const gchar *api_version);
 void		 asb_context_set_flags		(AsbContext	*ctx,
 						 AsbContextFlags flags);
 void		 asb_context_set_max_threads	(AsbContext	*ctx,
@@ -124,7 +124,7 @@ const gchar	*asb_context_get_cache_dir	(AsbContext	*ctx);
 AsbContextFlags	 asb_context_get_flags		(AsbContext	*ctx);
 gboolean	 asb_context_get_flag		(AsbContext	*ctx,
 						 AsbContextFlags flag);
-gdouble		 asb_context_get_api_version	(AsbContext	*ctx);
+const gchar		*asb_context_get_api_version_string (AsbContext	 *ctx);
 guint		 asb_context_get_min_icon_size	(AsbContext	*ctx);
 
 gboolean	 asb_context_setup		(AsbContext	*ctx,
@@ -138,6 +138,12 @@ gboolean	 asb_context_add_filename	(AsbContext	*ctx,
 						 GError		**error);
 gboolean	 asb_context_find_in_cache	(AsbContext	*ctx,
 						 const gchar	*filename);
+
+
+/* Deprecated */
+void		 asb_context_set_api_version	(AsbContext	*ctx,
+						 gdouble	 api_version);
+gdouble		 asb_context_get_api_version	(AsbContext	*ctx);
 
 G_END_DECLS
 

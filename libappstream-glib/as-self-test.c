@@ -485,7 +485,7 @@ as_test_release_func (void)
 
 	/* back to node */
 	root = as_node_new ();
-	as_node_context_set_version (ctx, 0.4);
+	as_node_context_set_version (ctx, "0.4");
 	n = as_release_node_insert (release, root, ctx);
 	xml = as_node_to_xml (n, AS_NODE_TO_XML_FLAG_NONE);
 	ret = as_test_compare_lines (xml->str, src, &error);
@@ -556,7 +556,7 @@ as_test_provide_func (void)
 
 	/* back to node */
 	root = as_node_new ();
-	as_node_context_set_version (ctx, 0.4);
+	as_node_context_set_version (ctx, "0.4");
 	n = as_provide_node_insert (provide, root, ctx);
 	xml = as_node_to_xml (n, AS_NODE_TO_XML_FLAG_NONE);
 	ret = as_test_compare_lines (xml->str, src, &error);
@@ -598,7 +598,7 @@ as_test_launchable_func (void)
 
 	/* back to node */
 	root = as_node_new ();
-	as_node_context_set_version (ctx, 0.4);
+	as_node_context_set_version (ctx, "0.4");
 	n = as_launchable_node_insert (launchable, root, ctx);
 	xml = as_node_to_xml (n, AS_NODE_TO_XML_FLAG_NONE);
 	ret = as_test_compare_lines (xml->str, src, &error);
@@ -681,7 +681,7 @@ as_test_release_appstream_func (void)
 
 	/* back to node */
 	root = as_node_new ();
-	as_node_context_set_version (ctx, 1.0);
+	as_node_context_set_version (ctx, "1.0");
 	as_node_context_set_format_kind (ctx, AS_FORMAT_KIND_APPSTREAM);
 	n = as_release_node_insert (release, root, ctx);
 	xml = as_node_to_xml (n, AS_NODE_TO_XML_FLAG_FORMAT_MULTILINE);
@@ -965,7 +965,7 @@ as_test_icon_func (void)
 
 	/* back to node */
 	root = as_node_new ();
-	as_node_context_set_version (ctx, 0.4);
+	as_node_context_set_version (ctx, "0.4");
 	n = as_icon_node_insert (icon, root, ctx);
 	xml = as_node_to_xml (n, AS_NODE_TO_XML_FLAG_NONE);
 	ret = as_test_compare_lines (xml->str, src, &error);
@@ -1028,7 +1028,7 @@ as_test_icon_scale_func (void)
 
 	/* back to node */
 	root = as_node_new ();
-	as_node_context_set_version (ctx, 0.9);
+	as_node_context_set_version (ctx, "0.9");
 	n = as_icon_node_insert (icon, root, ctx);
 	xml = as_node_to_xml (n, AS_NODE_TO_XML_FLAG_NONE);
 	ret = as_test_compare_lines (xml->str, src, &error);
@@ -1080,7 +1080,7 @@ as_test_checksum_func (void)
 
 	/* back to node */
 	root = as_node_new ();
-	as_node_context_set_version (ctx, 0.4);
+	as_node_context_set_version (ctx, "0.4");
 	n = as_checksum_node_insert (csum, root, ctx);
 	xml = as_node_to_xml (n, AS_NODE_TO_XML_FLAG_NONE);
 	ret = as_test_compare_lines (xml->str, src, &error);
@@ -1174,7 +1174,7 @@ as_test_icon_embedded_func (void)
 
 	/* back to node */
 	root = as_node_new ();
-	as_node_context_set_version (ctx, 0.4);
+	as_node_context_set_version (ctx, "0.4");
 	n = as_icon_node_insert (icon, root, ctx);
 	xml = as_node_to_xml (n, AS_NODE_TO_XML_FLAG_NONE);
 	ret = as_test_compare_lines (xml->str, src, &error);
@@ -1235,7 +1235,7 @@ as_test_image_func (void)
 
 	/* back to node */
 	root = as_node_new ();
-	as_node_context_set_version (ctx, 0.4);
+	as_node_context_set_version (ctx, "0.4");
 	n = as_image_node_insert (image, root, ctx);
 	xml = as_node_to_xml (n, AS_NODE_TO_XML_FLAG_NONE);
 	ret = as_test_compare_lines (xml->str, src, &error);
@@ -1324,7 +1324,7 @@ as_test_review_func (void)
 
 	/* back to node */
 	root = as_node_new ();
-	as_node_context_set_version (ctx, 0.4);
+	as_node_context_set_version (ctx, "0.4");
 	n = as_review_node_insert (review, root, ctx);
 	xml = as_node_to_xml (n, AS_NODE_TO_XML_FLAG_FORMAT_MULTILINE);
 	ret = as_test_compare_lines (xml->str, src, &error);
@@ -1384,7 +1384,7 @@ as_test_require_func (void)
 
 	/* back to node */
 	root = as_node_new ();
-	as_node_context_set_version (ctx, 0.4);
+	as_node_context_set_version (ctx, "0.4");
 	n = as_app_node_insert (app, root, ctx);
 	xml = as_node_to_xml (n, AS_NODE_TO_XML_FLAG_FORMAT_MULTILINE);
 	ret = as_test_compare_lines (xml->str, src, &error);
@@ -1464,7 +1464,7 @@ as_test_suggest_func (void)
 
 	/* back to node */
 	root = as_node_new ();
-	as_node_context_set_version (ctx, 0.4);
+	as_node_context_set_version (ctx, "0.4");
 	n = as_suggest_node_insert (suggest, root, ctx);
 	xml = as_node_to_xml (n, AS_NODE_TO_XML_FLAG_FORMAT_MULTILINE);
 	ret = as_test_compare_lines (xml->str, src, &error);
@@ -1509,7 +1509,7 @@ as_test_bundle_func (void)
 
 	/* back to node */
 	root = as_node_new ();
-	as_node_context_set_version (ctx, 0.4);
+	as_node_context_set_version (ctx, "0.4");
 	n = as_bundle_node_insert (bundle, root, ctx);
 	xml = as_node_to_xml (n, AS_NODE_TO_XML_FLAG_NONE);
 	ret = as_test_compare_lines (xml->str, src, &error);
@@ -1552,7 +1552,7 @@ as_test_translation_func (void)
 
 	/* back to node */
 	root = as_node_new ();
-	as_node_context_set_version (ctx, 0.4);
+	as_node_context_set_version (ctx, "0.4");
 	n = as_translation_node_insert (translation, root, ctx);
 	xml = as_node_to_xml (n, AS_NODE_TO_XML_FLAG_NONE);
 	ret = as_test_compare_lines (xml->str, src, &error);
@@ -1615,7 +1615,7 @@ as_test_screenshot_func (void)
 
 	/* back to node */
 	root = as_node_new ();
-	as_node_context_set_version (ctx, 0.8);
+	as_node_context_set_version (ctx, "0.8");
 	n = as_screenshot_node_insert (screenshot, root, ctx);
 	xml = as_node_to_xml (n, AS_NODE_TO_XML_FLAG_FORMAT_MULTILINE);
 	ret = as_test_compare_lines (xml->str, src, &error);
@@ -1669,7 +1669,7 @@ as_test_content_rating_func (void)
 
 	/* back to node */
 	root = as_node_new ();
-	as_node_context_set_version (ctx, 0.8);
+	as_node_context_set_version (ctx, "0.8");
 	n = as_content_rating_node_insert (content_rating, root, ctx);
 	xml = as_node_to_xml (n, AS_NODE_TO_XML_FLAG_FORMAT_MULTILINE);
 	ret = as_test_compare_lines (xml->str, src, &error);
@@ -1859,7 +1859,7 @@ as_test_app_func (void)
 
 	/* back to node */
 	root = as_node_new ();
-	as_node_context_set_version (ctx, 1.0);
+	as_node_context_set_version (ctx, "1.0");
 	n = as_app_node_insert (app, root, ctx);
 	xml = as_node_to_xml (n, AS_NODE_TO_XML_FLAG_FORMAT_MULTILINE);
 	ret = as_test_compare_lines (xml->str, src, &error);
@@ -2487,7 +2487,7 @@ as_test_app_no_markup_func (void)
 
 	/* back to node */
 	root = as_node_new ();
-	as_node_context_set_version (ctx, 0.4);
+	as_node_context_set_version (ctx, "0.4");
 	n = as_app_node_insert (app, root, ctx);
 	xml = as_node_to_xml (n, AS_NODE_TO_XML_FLAG_FORMAT_MULTILINE);
 	ret = as_test_compare_lines (xml->str, src, &error);
@@ -3450,7 +3450,7 @@ as_test_store_demote_func (void)
 
 	/* add apps */
 	store = as_store_new ();
-	as_store_set_api_version (store, 0.8);
+	as_store_set_api_version_string (store, "0.8");
 	as_store_add_app (store, app_desktop);
 	as_store_add_app (store, app_appdata);
 
@@ -4047,7 +4047,7 @@ as_test_node_no_dup_c_func (void)
 
 	/* back to node */
 	root = as_node_new ();
-	as_node_context_set_version (ctx, 0.4);
+	as_node_context_set_version (ctx, "0.4");
 	n = as_app_node_insert (app, root, ctx);
 	xml = as_node_to_xml (n, AS_NODE_TO_XML_FLAG_NONE);
 	g_assert_cmpstr (xml->str, ==,

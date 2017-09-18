@@ -35,9 +35,11 @@ G_BEGIN_DECLS
 typedef struct _AsNodeContext	AsNodeContext;
 AsNodeContext	*as_node_context_new		(void);
 void		 as_node_context_free		(AsNodeContext	*ctx);
-gdouble		 as_node_context_get_version	(AsNodeContext	*ctx);
+const gchar     *as_node_context_get_version	(AsNodeContext	*ctx);
 void		 as_node_context_set_version	(AsNodeContext	*ctx,
-						 gdouble	 version);
+						 const gchar    *version);
+gboolean	 as_node_context_version_at_least (AsNodeContext	*ctx,
+						   const gchar    *version);
 AsFormatKind	 as_node_context_get_format_kind (AsNodeContext	*ctx);
 void		 as_node_context_set_format_kind (AsNodeContext	*ctx,
 						 AsFormatKind	 format_kind);
@@ -71,4 +73,3 @@ G_DEFINE_AUTOPTR_CLEANUP_FUNC(AsNodeContext, as_node_context_free)
 G_END_DECLS
 
 #endif /* __AS_NODE_PRIVATE_H */
-

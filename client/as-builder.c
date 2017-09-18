@@ -190,7 +190,7 @@ main (int argc, char **argv)
 		g_print ("--old-metadata now does nothing and will be removed in future versions");
 
 	ctx = asb_context_new ();
-	asb_context_set_api_version (ctx, 0.8);
+	asb_context_set_api_version_string (ctx, "0.11.4");
 	asb_context_set_log_dir (ctx, log_dir);
 	asb_context_set_temp_dir (ctx, temp_dir);
 	asb_context_set_output_dir (ctx, output_dir);

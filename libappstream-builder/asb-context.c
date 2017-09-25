@@ -382,7 +382,7 @@ asb_context_get_api_version (AsbContext *ctx)
  *
  * Returns: string
  *
- * Since: 0.1.0
+ * Since: 0.7.3
  **/
 const gchar*
 asb_context_get_api_version_string (AsbContext *ctx)

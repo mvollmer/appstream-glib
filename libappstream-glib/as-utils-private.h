@@ -47,6 +47,7 @@ const gchar	*as_ptr_array_find_string	(GPtrArray	*array,
 gboolean	 as_utils_locale_is_compatible	(const gchar	*locale1,
 						 const gchar	*locale2);
 GDateTime	*as_utils_iso8601_to_datetime	(const gchar	*iso_date);
+gdouble          as_utils_version_to_double     (const gchar    *version);
 
 G_END_DECLS
 
